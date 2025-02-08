@@ -100,28 +100,27 @@ public class ClinicianGroupsService {
 			return fetchedGrouporCliniciansData;
 
 	}
-	
-	
+
 	/**
 	 *
 	 * Updating the childId details in the parent post removal of child
 	 *
 	 */
-	public void updateChildinParent(Map<Long,List<Long>>parentIdForUpdate) {
+	public void updateChildinParent(Map<Long, List<Long>> parentIdForUpdate) {
 
-		parentIdForUpdate.forEach((key,val)-> {
-			
+		parentIdForUpdate.forEach((key, val) -> {
+
 			Optional<ClinicianGroups> fetchedGrouporCliniciansData = cliniciangroupsrepo.findById(key);
 
 			if (!fetchedGrouporCliniciansData.isEmpty()) {
-				
+
 				ClinicianGroups grpCliniciandata = fetchedGrouporCliniciansData.get();
 
 				grpCliniciandata.setChildIds(val);
 
 				cliniciangroupsrepo.save(grpCliniciandata);
 			}
-			
+
 		});
 
 	}

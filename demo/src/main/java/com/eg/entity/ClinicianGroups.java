@@ -14,22 +14,23 @@ import jakarta.persistence.*;
 /**
  * @author Mohit.Salian
  *
- *Entity class for creation of Table , primary key and respective columns in the tables.
+ *         Entity class for creation of Table , primary key and respective
+ *         columns in the tables.
  */
 @Entity
 @Table
 public class ClinicianGroups {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long groupId;
-	
+
 	@Column(nullable = false)
 	private String groupName;
-	
+
 	@Column
 	private Long parentId;
-	
+
 	@Column
 	private List<Long> childIds;
 
@@ -89,5 +90,4 @@ public class ClinicianGroups {
 		this.childIds = childIds;
 	}
 
-	
 }

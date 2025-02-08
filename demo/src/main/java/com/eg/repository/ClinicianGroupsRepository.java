@@ -10,7 +10,8 @@ import com.eg.entity.ClinicianGroups;
 /**
  * @author Mohit.Salian
  * 
- * Repository class for getting the inbuilt methods of JPARepository (CRUD operations)
+ *         Repository class for getting the inbuilt methods of JPARepository
+ *         (CRUD operations)
  *
  */
 public interface ClinicianGroupsRepository extends JpaRepository<ClinicianGroups, Long> {
