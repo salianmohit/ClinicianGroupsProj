@@ -5,6 +5,7 @@ package com.eg.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,9 +107,22 @@ public class ClinicianGroupsService {
 	 * Updating the childId details in the parent post removal of child
 	 *
 	 */
-	public void updateChildinParent(Long id) {
+	public void updateChildinParent(Map<Long,List<Long>>parentIdForUpdate) {
 
-		cliniciangroupsrepo.deleteById(id);
+		parentIdForUpdate.forEach((key,val)-> {
+			
+			Optional<ClinicianGroups> fetchedGrouporCliniciansData = cliniciangroupsrepo.findById(key);
+
+			if (!fetchedGrouporCliniciansData.isEmpty()) {
+				
+				ClinicianGroups grpCliniciandata = fetchedGrouporCliniciansData.get();
+
+				grpCliniciandata.setChildIds(val);
+
+				cliniciangroupsrepo.save(grpCliniciandata);
+			}
+			
+		});
 
 	}
 

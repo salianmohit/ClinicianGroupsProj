@@ -3,7 +3,10 @@
  */
 package com.eg.facade;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,6 +19,7 @@ import com.eg.service.ClinicianGroupsService;
 
 /**
  * @author Mohit.Salian
+ * @param <E>
  *
  */
 public class ClinicianGroupsFacade {
@@ -54,9 +58,17 @@ public class ClinicianGroupsFacade {
 					clinicianGroupsService.deleteGroupOrClinicians(groupData.getGroupId());
 					//Fetch all the groups where the group was present as a child for removing its details from child id column
 					List <ClinicianGroups> allGroupsData = clinicianGroupsService.fetchAllGroups();
-					List<Long>childIds = allGroupsData.stream().map(e->e.getChildIds()).collect(Collectors.toList());
-					
-					clinicianGroupsService.editGroupOrClinicians(id, null);
+
+					Map <Long, List<Long>> parentIdForUpdate = new HashMap<Long, List<Long>>();
+					//Filter the parent group for which the child exist
+					allGroupsData.forEach(e ->{
+						
+						if (e.getChildIds().contains(groupData.getGroupId())) {
+							parentIdForUpdate.put(e.getGroupId(),e.getChildIds().stream().filter(a ->Objects.equals(groupData.getGroupId(),a)).collect(Collectors.toList()));
+						}
+					});
+					//Update the updated child if for the parent id
+					clinicianGroupsService.updateChildinParent(parentIdForUpdate);
 				}
 			}
 
