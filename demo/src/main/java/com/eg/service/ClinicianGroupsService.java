@@ -9,10 +9,11 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.CollectionUtils;
 
 import com.eg.entity.ClinicianGroups;
+import com.eg.entity.ClinicianMsgAuditLog;
 import com.eg.repository.ClinicianGroupsRepository;
+import com.eg.repository.ClinicianMsgAuditLogRepository;
 
 /**
  * @author Mohit.Salian
@@ -24,6 +25,12 @@ public class ClinicianGroupsService {
 
 	@Autowired
 	ClinicianGroupsRepository cliniciangroupsrepo;
+	
+	@Autowired
+	ClinicianMsgAuditLogRepository clinicianMsgrepo;
+	
+	@Autowired
+	ClinicianMsgAuditLog clinicianMsgAuditLog;
 
 	/**
 	 *
@@ -124,5 +131,18 @@ public class ClinicianGroupsService {
 		});
 
 	}
+	
+	/**
+	 *
+	 * Saving Messages to Db
+	 *
+	 */
+	public String saveSentMessages(String message) {
+
+		clinicianMsgAuditLog.setMessage(message);
+		 clinicianMsgrepo.save(clinicianMsgAuditLog);
+		 return "success";
+	}
+
 
 }

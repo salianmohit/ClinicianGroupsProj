@@ -3,7 +3,7 @@
  */
 package com.eg.facade;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +12,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.CollectionUtils;
 
 import com.eg.entity.ClinicianGroups;
+import com.eg.jms.sender.ClinicianJmsSender;
 import com.eg.service.ClinicianGroupsService;
 
 /**
@@ -26,8 +26,17 @@ public class ClinicianGroupsFacade {
 
 	@Autowired
 	private ClinicianGroupsService clinicianGroupsService;
+	
+	@Autowired
+	private ClinicianJmsSender clinicianJmsSender;
+	
+	private Date date;
 
 	public ClinicianGroups createGroup(ClinicianGroups groupData) {
+		
+		//Tracking the Operation in DB for CREATE
+
+		clinicianJmsSender.sendCreateGrpMessage("CREATE_GROUP-"+date);
 
 		return clinicianGroupsService.createGroupOrClinicians(groupData);
 	}
@@ -39,13 +48,18 @@ public class ClinicianGroupsFacade {
 
 	public ClinicianGroups editGroup(Long id, ClinicianGroups groupData) {
 
+		//Tracking the Operation in DB for EDIT
+
+		clinicianJmsSender.sendEditGrpMessage("EDIT_GROUP-"+groupData.getGroupId()+"-"+groupData.getParentId()+"-"+date);
+
 		return clinicianGroupsService.editGroupOrClinicians(id, groupData);
 	}
 
 	public String removeGrouporClinicians(Long id) {
 
-		Optional<ClinicianGroups> groupDataFromDb = clinicianGroupsService.fetchGroupOrCliniciansData(id);
 		try {
+			Optional<ClinicianGroups> groupDataFromDb = clinicianGroupsService.fetchGroupOrCliniciansData(id);
+
 			if (groupDataFromDb.isPresent()) {
 
 				ClinicianGroups groupData = groupDataFromDb.get();
@@ -101,6 +115,8 @@ public class ClinicianGroupsFacade {
 
 					}
 				}
+				//Tracking the Operation in DB for DELETE
+				clinicianJmsSender.sendDeleteGrpMessage("DELETE_GROUP-"+groupDataFromDb.get().getGroupId()+"-"+groupDataFromDb.get().getParentId()+"-"+date);
 
 				return "Removed the node or group successfully";
 
