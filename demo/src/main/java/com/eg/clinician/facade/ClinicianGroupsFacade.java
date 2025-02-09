@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.eg.clinician.entity.ClinicianGroups;
 import com.eg.clinician.jms.sender.ClinicianJmsSender;
@@ -22,6 +23,7 @@ import com.eg.clinician.service.ClinicianGroupsService;
  * 
  *
  */
+@Component
 public class ClinicianGroupsFacade {
 
 	@Autowired

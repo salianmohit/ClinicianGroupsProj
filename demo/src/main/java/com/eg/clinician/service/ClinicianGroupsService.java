@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.eg.clinician.entity.ClinicianGroups;
 import com.eg.clinician.entity.ClinicianMsgAuditLog;
@@ -21,6 +22,7 @@ import com.eg.clinician.repository.ClinicianMsgAuditLogRepository;
  *         Calling the JPA repository CRUD operations method for creating a
  *         group, updating and removing
  */
+@Service
 public class ClinicianGroupsService {
 
 	@Autowired
@@ -28,9 +30,6 @@ public class ClinicianGroupsService {
 
 	@Autowired
 	ClinicianMsgAuditLogRepository clinicianMsgrepo;
-
-	@Autowired
-	ClinicianMsgAuditLog clinicianMsgAuditLog;
 
 	/**
 	 *
@@ -138,6 +137,8 @@ public class ClinicianGroupsService {
 	 *
 	 */
 	public String saveSentMessages(String message) {
+
+		ClinicianMsgAuditLog clinicianMsgAuditLog = new ClinicianMsgAuditLog();
 
 		clinicianMsgAuditLog.setMessage(message);
 		clinicianMsgrepo.save(clinicianMsgAuditLog);

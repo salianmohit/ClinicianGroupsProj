@@ -4,12 +4,14 @@
 package com.eg.clinician.jms.consumer;
 
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Mohit.Salian
  *
  *         Mainly Listener for consuming messages from queue
  */
+@Component
 public class ClinicianJmsConsumer {
 
 	@JmsListener(destination = "eg-CreateGrp-msgQueue")

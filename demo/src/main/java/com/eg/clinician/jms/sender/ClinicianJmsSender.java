@@ -5,6 +5,7 @@ package com.eg.clinician.jms.sender;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Component;
 
 import com.eg.clinician.service.ClinicianGroupsService;
 
@@ -13,6 +14,7 @@ import com.eg.clinician.service.ClinicianGroupsService;
  *
  *         Mainly Producer for sending messages to queue
  */
+@Component
 public class ClinicianJmsSender {
 
 	@Autowired
