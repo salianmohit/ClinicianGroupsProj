@@ -1,0 +1,10 @@
+CREATE DATABASE demodbmohit;
+USE demodbmohit; 
+
+
+
+{
+    "groupName": "Hospital A",
+    "parentId":"",
+    "childIds": ""
+    }
