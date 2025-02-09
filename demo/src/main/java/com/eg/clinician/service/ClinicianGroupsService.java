@@ -3,6 +3,7 @@
  */
 package com.eg.clinician.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -141,6 +142,7 @@ public class ClinicianGroupsService {
 		ClinicianMsgAuditLog clinicianMsgAuditLog = new ClinicianMsgAuditLog();
 
 		clinicianMsgAuditLog.setMessage(message);
+		clinicianMsgAuditLog.setDate(LocalDate.now());
 		clinicianMsgrepo.save(clinicianMsgAuditLog);
 		return "success";
 	}

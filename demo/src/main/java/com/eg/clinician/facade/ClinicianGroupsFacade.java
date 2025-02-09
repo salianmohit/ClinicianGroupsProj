@@ -3,7 +3,7 @@
  */
 package com.eg.clinician.facade;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,13 +32,11 @@ public class ClinicianGroupsFacade {
 	@Autowired
 	private ClinicianJmsSender clinicianJmsSender;
 
-	private Date date;
-
 	public ClinicianGroups createGroup(ClinicianGroups groupData) {
 
 		// Tracking the Operation in DB for CREATE
 
-		clinicianJmsSender.sendCreateGrpMessage("CREATE_GROUP-" + date);
+		clinicianJmsSender.sendCreateGrpMessage("CREATE_GROUP-" + LocalDate.now());
 
 		return clinicianGroupsService.createGroupOrClinicians(groupData);
 	}
@@ -53,7 +51,7 @@ public class ClinicianGroupsFacade {
 		// Tracking the Operation in DB for EDIT
 
 		clinicianJmsSender.sendEditGrpMessage(
-				"EDIT_GROUP-" + groupData.getGroupId() + "-" + groupData.getParentId() + "-" + date);
+				"EDIT_GROUP-" + groupData.getGroupId() + "-" + groupData.getParentId() + "-" + LocalDate.now());
 
 		return clinicianGroupsService.editGroupOrClinicians(id, groupData);
 	}
@@ -120,7 +118,7 @@ public class ClinicianGroupsFacade {
 				}
 				// Tracking the Operation in DB for DELETE
 				clinicianJmsSender.sendDeleteGrpMessage("DELETE_GROUP-" + groupDataFromDb.get().getGroupId() + "-"
-						+ groupDataFromDb.get().getParentId() + "-" + date);
+						+ groupDataFromDb.get().getParentId() + "-" + LocalDate.now());
 
 				return "Removed the node or group successfully";
 

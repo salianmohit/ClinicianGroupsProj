@@ -3,7 +3,7 @@
  */
 package com.eg.clinician.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -31,7 +31,7 @@ public class ClinicianMsgAuditLog {
 
 	@Column
 	@CreatedDate
-	private Date date;
+	private LocalDate date;
 
 	/**
 	 * @return the auditId
@@ -64,14 +64,14 @@ public class ClinicianMsgAuditLog {
 	/**
 	 * @return the date
 	 */
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
