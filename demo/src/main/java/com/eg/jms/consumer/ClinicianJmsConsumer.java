@@ -12,7 +12,6 @@ import org.springframework.jms.annotation.JmsListener;
  */
 public class ClinicianJmsConsumer {
 
-
 	@JmsListener(destination = "eg-CreateGrp-msgQueue")
 	public void receiveCreateGrpMessage(String message) {
 

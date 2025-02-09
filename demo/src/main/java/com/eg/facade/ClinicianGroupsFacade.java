@@ -26,17 +26,17 @@ public class ClinicianGroupsFacade {
 
 	@Autowired
 	private ClinicianGroupsService clinicianGroupsService;
-	
+
 	@Autowired
 	private ClinicianJmsSender clinicianJmsSender;
-	
+
 	private Date date;
 
 	public ClinicianGroups createGroup(ClinicianGroups groupData) {
-		
-		//Tracking the Operation in DB for CREATE
 
-		clinicianJmsSender.sendCreateGrpMessage("CREATE_GROUP-"+date);
+		// Tracking the Operation in DB for CREATE
+
+		clinicianJmsSender.sendCreateGrpMessage("CREATE_GROUP-" + date);
 
 		return clinicianGroupsService.createGroupOrClinicians(groupData);
 	}
@@ -48,9 +48,10 @@ public class ClinicianGroupsFacade {
 
 	public ClinicianGroups editGroup(Long id, ClinicianGroups groupData) {
 
-		//Tracking the Operation in DB for EDIT
+		// Tracking the Operation in DB for EDIT
 
-		clinicianJmsSender.sendEditGrpMessage("EDIT_GROUP-"+groupData.getGroupId()+"-"+groupData.getParentId()+"-"+date);
+		clinicianJmsSender.sendEditGrpMessage(
+				"EDIT_GROUP-" + groupData.getGroupId() + "-" + groupData.getParentId() + "-" + date);
 
 		return clinicianGroupsService.editGroupOrClinicians(id, groupData);
 	}
@@ -115,8 +116,9 @@ public class ClinicianGroupsFacade {
 
 					}
 				}
-				//Tracking the Operation in DB for DELETE
-				clinicianJmsSender.sendDeleteGrpMessage("DELETE_GROUP-"+groupDataFromDb.get().getGroupId()+"-"+groupDataFromDb.get().getParentId()+"-"+date);
+				// Tracking the Operation in DB for DELETE
+				clinicianJmsSender.sendDeleteGrpMessage("DELETE_GROUP-" + groupDataFromDb.get().getGroupId() + "-"
+						+ groupDataFromDb.get().getParentId() + "-" + date);
 
 				return "Removed the node or group successfully";
 

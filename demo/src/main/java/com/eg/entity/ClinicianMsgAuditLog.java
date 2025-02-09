@@ -25,10 +25,10 @@ public class ClinicianMsgAuditLog {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long auditId;
-	
+
 	@Column
 	private String message;
-	
+
 	@Column
 	@CreatedDate
 	private Date date;
@@ -74,7 +74,5 @@ public class ClinicianMsgAuditLog {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	
-	
+
 }

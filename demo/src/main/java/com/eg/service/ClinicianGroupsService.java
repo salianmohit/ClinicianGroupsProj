@@ -25,10 +25,10 @@ public class ClinicianGroupsService {
 
 	@Autowired
 	ClinicianGroupsRepository cliniciangroupsrepo;
-	
+
 	@Autowired
 	ClinicianMsgAuditLogRepository clinicianMsgrepo;
-	
+
 	@Autowired
 	ClinicianMsgAuditLog clinicianMsgAuditLog;
 
@@ -131,7 +131,7 @@ public class ClinicianGroupsService {
 		});
 
 	}
-	
+
 	/**
 	 *
 	 * Saving Messages to Db
@@ -140,9 +140,8 @@ public class ClinicianGroupsService {
 	public String saveSentMessages(String message) {
 
 		clinicianMsgAuditLog.setMessage(message);
-		 clinicianMsgrepo.save(clinicianMsgAuditLog);
-		 return "success";
+		clinicianMsgrepo.save(clinicianMsgAuditLog);
+		return "success";
 	}
-
 
 }
